@@ -8,6 +8,7 @@ import com.github.notrodans.http.server.handler.RequestHandler;
 
 final public class Server {
 	private final int port;
+	private final ExecutorService executorService;
 
 	public Server(final int port) {
 		this.port = port;
@@ -26,6 +27,4 @@ final public class Server {
 			System.out.println("IOException: " + e.getMessage());
 		}
 	}
-
-	private final ExecutorService executorService;
 }
