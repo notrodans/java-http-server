@@ -9,7 +9,7 @@ public enum HttpStatus {
 
 		private final int value;
 
-		private Series(int value) {
+		private Series(final int value) {
 			this.value = value;
 		}
 
@@ -22,7 +22,7 @@ public enum HttpStatus {
 	private final Series series;
 	private final String reasonPhrase;
 
-	private HttpStatus(int code, Series series, String reasonPhrase) {
+	private HttpStatus(final int code, final Series series, final String reasonPhrase) {
 		this.code = code;
 		this.series = series;
 		this.reasonPhrase = reasonPhrase;

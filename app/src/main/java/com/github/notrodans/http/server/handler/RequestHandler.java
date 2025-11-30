@@ -10,7 +10,7 @@ import com.github.notrodans.http.server.request.RequestContext;
 import com.github.notrodans.http.server.response.ResponseContext;
 import com.github.notrodans.http.server.service.HandlerMethodResolver;
 
-public class RequestHandler implements Runnable {
+final public class RequestHandler implements Runnable {
 	private final Socket clientSocket;
 	private final HandlerMethodResolver handleMethodResolver;
 
@@ -30,12 +30,12 @@ public class RequestHandler implements Runnable {
 				return;
 			}
 			final var os = clientSocket.getOutputStream();
-			var handlerMethod = handleMethodResolver.resolve(context);
+			final var handlerMethod = handleMethodResolver.resolve(context);
 			if (handlerMethod == null) {
 				os.write(ResponseContext.build(HttpStatus.NOT_FOUND).getResponseAsBytes());
 				os.flush();
 			} else {
-				ResponseContext responseContext = handlerMethod.invoke(context);
+				final ResponseContext responseContext = handlerMethod.invoke(context);
 				if (responseContext.getStatus().isError()) {
 					os
 						.write(

@@ -8,19 +8,21 @@ import com.github.notrodans.http.server.exception.InterceptorException;
 import com.github.notrodans.http.server.request.RequestContext;
 import com.github.notrodans.http.server.response.ResponseContext;
 
-public class EncodeInterceptor implements Interceptor {
+final public class EncodeInterceptor implements Interceptor {
 	@Override
-	public void beforeSendResponse(RequestContext requestContext, ResponseContext responseContext) {
-		var acceptEncoding = requestContext.getHeaders().getFirst("Accept-Encoding");
+	public void beforeSendResponse(final RequestContext requestContext,
+		final ResponseContext responseContext) {
+		final var acceptEncoding = requestContext.getHeaders().getFirst("Accept-Encoding");
 		if (acceptEncoding != null && !acceptEncoding.isBlank()
 			&& responseContext.getResponseBody() != null) {
-			var parts = acceptEncoding.split(",");
+			final var parts = acceptEncoding.split(",");
 			Arrays
 				.stream(parts)
 				.filter(it -> it.trim().equalsIgnoreCase("gzip"))
 				.findFirst()
 				.ifPresent(gzipString -> {
-					byte[] responseBody = compressResponseBody(responseContext.getResponseBody());
+					final byte[] responseBody =
+						compressResponseBody(responseContext.getResponseBody());
 					responseContext
 						.getHeaders()
 						.set("Content-Length", String.valueOf(responseBody.length));
@@ -30,9 +32,9 @@ public class EncodeInterceptor implements Interceptor {
 		}
 	}
 
-	private byte[] compressResponseBody(byte[] responseBody) {
+	private byte[] compressResponseBody(final byte[] responseBody) {
 		try {
-			var outputStream = new ByteArrayOutputStream();
+			final var outputStream = new ByteArrayOutputStream();
 			try (GZIPOutputStream gzipOutputStream = new GZIPOutputStream(outputStream)) {
 				gzipOutputStream.write(responseBody);
 			}

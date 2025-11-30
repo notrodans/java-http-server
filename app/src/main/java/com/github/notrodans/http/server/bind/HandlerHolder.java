@@ -8,7 +8,7 @@ import com.github.notrodans.http.server.controller.ApplicationController;
 import com.github.notrodans.http.server.request.RequestContext;
 import com.github.notrodans.http.server.response.ResponseContext;
 
-public class HandlerHolder {
+final public class HandlerHolder {
 	private static volatile HandlerHolder INSTANCE;
 
 	private final List<Class<?>> handlerTypeList = new ArrayList<>();

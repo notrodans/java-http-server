@@ -7,7 +7,7 @@ import com.github.notrodans.http.server.common.HttpHeaders;
 import com.github.notrodans.http.server.common.HttpStatus;
 import com.github.notrodans.http.server.exception.ResponseContextException;
 
-public class ResponseContext {
+final public class ResponseContext {
 	public static ResponseContext build(final HttpStatus status) {
 		return build(status, null, null);
 	}

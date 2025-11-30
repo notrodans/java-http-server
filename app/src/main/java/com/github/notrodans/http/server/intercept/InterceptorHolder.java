@@ -5,7 +5,7 @@ import java.util.List;
 import com.github.notrodans.http.server.request.RequestContext;
 import com.github.notrodans.http.server.response.ResponseContext;
 
-public class InterceptorHolder {
+final public class InterceptorHolder {
 	private static volatile InterceptorHolder INSTANCE;
 	private final List<Interceptor> interceptors;
 
@@ -27,7 +27,8 @@ public class InterceptorHolder {
 		return INSTANCE;
 	}
 
-	public void beforeSendResponse(RequestContext requestContext, ResponseContext responseContext) {
+	public void beforeSendResponse(final RequestContext requestContext,
+		final ResponseContext responseContext) {
 		interceptors.forEach(it -> it.beforeSendResponse(requestContext, responseContext));
 	}
 }

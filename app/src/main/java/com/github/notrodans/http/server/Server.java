@@ -6,10 +6,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import com.github.notrodans.http.server.handler.RequestHandler;
 
-public class Server {
+final public class Server {
 	private final int port;
 
-	public Server(int port) {
+	public Server(final int port) {
 		this.port = port;
 		this.executorService = Executors.newFixedThreadPool(10);
 	}
@@ -18,7 +18,7 @@ public class Server {
 		try (var serverSocket = new ServerSocket(port)) {
 			serverSocket.setReuseAddress(true);
 			while (true) {
-				var clientSocket = serverSocket.accept();
+				final var clientSocket = serverSocket.accept();
 				System.out.println("accepted new connection");
 				executorService.execute(new RequestHandler(clientSocket));
 			}

@@ -1,6 +1,6 @@
 package com.github.notrodans.http.server.common;
 
-public class ApplicationParameters {
+final public class ApplicationParameters {
 	private static volatile ApplicationParameters INSTANCE;
 
 	public static ApplicationParameters getInstance() {
@@ -22,7 +22,7 @@ public class ApplicationParameters {
 
 	}
 
-	public void setFileDirectory(String[] args) {
+	public void setFileDirectory(final String[] args) {
 		for (int i = 0; i < args.length; i++) {
 			if (args[i].equals("--directory")) {
 				fileDirectory = args[i + 1];

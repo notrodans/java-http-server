@@ -1,17 +1,17 @@
 package com.github.notrodans.http.server.exception;
 
-public class ResponseContextException extends RuntimeException {
+final public class ResponseContextException extends RuntimeException {
 	public ResponseContextException() {}
 
-	public ResponseContextException(String message) {
+	public ResponseContextException(final String message) {
 		super(message);
 	}
 
-	public ResponseContextException(String message, Throwable cause) {
+	public ResponseContextException(final String message, final Throwable cause) {
 		super(message, cause);
 	}
 
-	public ResponseContextException(Throwable cause) {
+	public ResponseContextException(final Throwable cause) {
 		super(cause);
 	}
 }

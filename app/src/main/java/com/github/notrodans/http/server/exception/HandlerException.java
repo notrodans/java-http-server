@@ -1,17 +1,17 @@
 package com.github.notrodans.http.server.exception;
 
-public class HandlerException extends RuntimeException {
+final public class HandlerException extends RuntimeException {
 	public HandlerException() {}
 
-	public HandlerException(String message) {
+	public HandlerException(final String message) {
 		super(message);
 	}
 
-	public HandlerException(String message, Throwable cause) {
+	public HandlerException(final String message, final Throwable cause) {
 		super(message, cause);
 	}
 
-	public HandlerException(Throwable cause) {
+	public HandlerException(final Throwable cause) {
 		super(cause);
 	}
 }

@@ -4,8 +4,8 @@ import com.github.notrodans.http.server.bind.HandlerHolder;
 import com.github.notrodans.http.server.bind.HandlerMethod;
 import com.github.notrodans.http.server.request.RequestContext;
 
-public class HandlerMethodResolver {
-	public HandlerMethod resolve(RequestContext context) {
+final public class HandlerMethodResolver {
+	public HandlerMethod resolve(final RequestContext context) {
 		return HandlerHolder
 			.getInstance()
 			.getHandlerMethods()

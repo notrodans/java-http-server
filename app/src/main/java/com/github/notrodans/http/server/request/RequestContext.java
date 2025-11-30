@@ -9,7 +9,7 @@ import java.util.List;
 import com.github.notrodans.http.server.common.HttpHeaders;
 import com.github.notrodans.http.server.common.HttpMethod;
 
-public class RequestContext {
+final public class RequestContext {
 	public static RequestContext buildContext(final BufferedReader reader) {
 		try {
 			final var requestLine = reader.readLine();

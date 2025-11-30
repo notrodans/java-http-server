@@ -1,6 +1,6 @@
 package com.github.notrodans.http.server.service;
 
-public class PathPattern {
+final public class PathPattern {
 	private static class Segment {
 		private final boolean isParam;
 		private final String param;

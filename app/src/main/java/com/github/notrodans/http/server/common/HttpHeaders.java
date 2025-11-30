@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HttpHeaders {
+final public class HttpHeaders {
 	public static HttpHeaders fromHeaderList(final List<String> headerList) {
 		final Map<String, List<String>> headers = new HashMap<>();
 		headerList.forEach(line -> {

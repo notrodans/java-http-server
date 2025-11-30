@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import com.github.notrodans.http.server.common.HttpMethod;
 import com.github.notrodans.http.server.exception.HandlerException;
 
-public class HandlerMethod {
+final public class HandlerMethod {
 	private final Object handlerObject;
 	private final HttpMethod method;
 	private final String path;

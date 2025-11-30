@@ -15,7 +15,7 @@ import com.github.notrodans.http.server.common.HttpStatus;
 import com.github.notrodans.http.server.request.RequestContext;
 import com.github.notrodans.http.server.response.ResponseContext;
 
-public class ApplicationController {
+final public class ApplicationController {
 	@RequestMapping(path = "/", method = HttpMethod.GET)
 	public ResponseContext simpleOk(final RequestContext context) {
 		return ResponseContext.build(HttpStatus.OK);
