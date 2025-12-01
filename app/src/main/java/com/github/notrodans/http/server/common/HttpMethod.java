@@ -1,7 +1,5 @@
 package com.github.notrodans.http.server.common;
 
-import java.util.Arrays;
-
 public enum HttpMethod {
 	GET("get"), POST("post");
 
@@ -13,13 +11,5 @@ public enum HttpMethod {
 
 	public String getType() {
 		return type;
-	}
-
-	public static HttpMethod fromType(final String type) {
-		return Arrays
-			.stream(values())
-			.filter(it -> it.type.equalsIgnoreCase(type))
-			.findFirst()
-			.orElseThrow(() -> new IllegalArgumentException("Exception on get http method"));
 	}
 }

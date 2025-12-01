@@ -5,14 +5,19 @@ import com.github.notrodans.http.server.bind.HandlerMethod;
 import com.github.notrodans.http.server.request.RequestContext;
 
 final public class HandlerMethodResolver {
+	private final HandlerHolder handlerHolder;
+
+	public HandlerMethodResolver(final HandlerHolder handlerHolder) {
+		this.handlerHolder = handlerHolder;
+	}
+
 	public HandlerMethod resolve(final RequestContext context) {
-		return HandlerHolder
-			.getInstance()
+		return handlerHolder
 			.getHandlerMethods()
 			.stream()
 			.filter(
 				it -> context.getMethod() == it.getMethod()
-					&& PathPattern.path(it.getPath()).match(context.getPath()))
+					&& new PathPatternFromPath(it.getPath()).get().match(context.getPath()))
 			.findFirst()
 			.orElseGet(() -> {
 				System.out.println("Handler by context not found: " + context);

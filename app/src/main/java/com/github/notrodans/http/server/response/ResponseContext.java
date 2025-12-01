@@ -8,28 +8,6 @@ import com.github.notrodans.http.server.common.HttpStatus;
 import com.github.notrodans.http.server.exception.ResponseContextException;
 
 final public class ResponseContext {
-	public static ResponseContext build(final HttpStatus status) {
-		return build(status, null, null);
-	}
-
-	public static ResponseContext build(final HttpStatus status, final HttpHeaders headers) {
-		return build(status, headers, null);
-	}
-
-	public static ResponseContext build(final HttpStatus status, final HttpHeaders headers,
-		final String body) {
-		return buildWithBytes(status, headers, body == null ? null : body.getBytes());
-	}
-
-	public static ResponseContext buildWithBytes(final HttpStatus status, final HttpHeaders headers,
-		final byte[] responseBody) {
-		final var context = new ResponseContext();
-		context.setStatus(status);
-		context.setHeaders(headers);
-		context.setResponseBody(responseBody);
-		return context;
-	}
-
 	private HttpStatus status;
 
 	private HttpHeaders headers;

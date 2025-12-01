@@ -1,7 +1,7 @@
 package com.github.notrodans.http.server.service;
 
 final public class PathPattern {
-	private static class Segment {
+	final static class Segment {
 		private final boolean isParam;
 		private final String param;
 		private final String constant;
@@ -19,14 +19,10 @@ final public class PathPattern {
 
 	}
 
-	public static PathPattern path(final String path) {
-		return new PathPattern(path);
-	}
-
 	final Segment[] segments;
 	private final String originalPath;
 
-	private PathPattern(final String originalPath) {
+	public PathPattern(final String originalPath) {
 		this.originalPath = originalPath;
 		final String[] inSegments = originalPath.split("/");
 		segments = new Segment[inSegments.length];

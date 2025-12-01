@@ -6,94 +6,93 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 import com.github.notrodans.http.server.bind.RequestMapping;
 import com.github.notrodans.http.server.common.ApplicationParameters;
-import com.github.notrodans.http.server.common.HttpHeaders;
+import com.github.notrodans.http.server.common.FromHeaderList;
+import com.github.notrodans.http.server.common.FromHeaderMap;
 import com.github.notrodans.http.server.common.HttpMethod;
 import com.github.notrodans.http.server.common.HttpStatus;
 import com.github.notrodans.http.server.request.RequestContext;
 import com.github.notrodans.http.server.response.ResponseContext;
+import com.github.notrodans.http.server.response.ResponseFromBytes;
+import com.github.notrodans.http.server.response.ResponseFromString;
 
 final public class ApplicationController {
+	private final ApplicationParameters applicationParameters;
+
+	public ApplicationController(final ApplicationParameters applicationParameters) {
+		this.applicationParameters = applicationParameters;
+	}
+
 	@RequestMapping(path = "/", method = HttpMethod.GET)
 	public ResponseContext simpleOk(final RequestContext context) {
-		return ResponseContext.build(HttpStatus.OK);
+		return new ResponseFromString(HttpStatus.OK, null, null).get();
 	}
 
 	@RequestMapping(path = "/echo/{command}", method = HttpMethod.GET)
 	public ResponseContext echo(final RequestContext context) {
 		final var responseBody = context.getLastPart();
-		return ResponseContext
-			.build(
-				HttpStatus.OK,
-				HttpHeaders
-					.fromHeaderMap(
-						Map
-							.of(
-								"Content-Type",
-								"text/plain",
-								"Content-Length",
-								String.valueOf(responseBody.getBytes().length))),
-				responseBody);
+		return new ResponseFromBytes(HttpStatus.OK,
+			new FromHeaderList(List
+				.of(
+					"Content-Type",
+					"text/plain",
+					"Content-Length",
+					String.valueOf(responseBody.getBytes().length))).get(
+
+			), responseBody.getBytes()).get();
 	}
 
 	@RequestMapping(path = "/user-agent", method = HttpMethod.GET)
 	public ResponseContext userAgent(final RequestContext context) {
 		final var responseBody = context.getHeaders().getFirst("User-Agent");
-		return ResponseContext
-			.build(
-				HttpStatus.OK,
-				HttpHeaders
-					.fromHeaderMap(
-						Map
-							.of(
-								"Content-Type",
-								"text/plain",
-								"Content-Length",
-								String.valueOf(responseBody.getBytes().length))),
-				responseBody);
+		return new ResponseFromBytes(HttpStatus.OK,
+			new FromHeaderMap(Map
+				.of(
+					"Content-Type",
+					"text/plain",
+					"Content-Length",
+					String.valueOf(responseBody.getBytes().length))).get(),
+			responseBody.getBytes()).get();
 	}
 
 	@RequestMapping(path = "/files/{file}", method = HttpMethod.POST)
 	public ResponseContext saveFile(final RequestContext context) {
-		if (!ApplicationParameters.getInstance().isDirectoryExists()) {
-			return ResponseContext.build(HttpStatus.NOT_FOUND);
+		if (!applicationParameters.isDirectoryExists()) {
+			return new ResponseFromString(HttpStatus.NOT_FOUND, null, null).get();
 		}
-		var directory = ApplicationParameters.getInstance().getFileDirectory();
+		var directory = applicationParameters.getFileDirectory();
 		directory = directory.endsWith("/") ? directory : directory + "/";
 		final var fileName = context.getLastPart();
 		saveFile(String.format("%s%s", directory, fileName), context.getBody());
-		return ResponseContext.build(HttpStatus.CREATED);
+		return new ResponseFromString(HttpStatus.CREATED, null, null).get();
 	}
 
 	@RequestMapping(path = "/files/{file}", method = HttpMethod.GET)
 	public ResponseContext readFileByName(final RequestContext context) {
-		if (!ApplicationParameters.getInstance().isDirectoryExists()) {
-			return ResponseContext.build(HttpStatus.NOT_FOUND);
+		if (!applicationParameters.isDirectoryExists()) {
+			return new ResponseFromString(HttpStatus.NOT_FOUND, null, null).get();
 		}
 
-		var directory = ApplicationParameters.getInstance().getFileDirectory();
+		var directory = applicationParameters.getFileDirectory();
 		directory = directory.endsWith("/") ? directory : directory + "/";
 		final var fileName = context.getLastPart();
 		final var file = new File(String.format("%s%s", directory, fileName));
 		if (!file.exists() || !file.isFile()) {
-			return ResponseContext.build(HttpStatus.NOT_FOUND);
+			return new ResponseFromString(HttpStatus.NOT_FOUND, null, null).get();
 		}
 
 		final var fileContent = readFile(file);
-		return ResponseContext
-			.build(
-				HttpStatus.OK,
-				HttpHeaders
-					.fromHeaderMap(
-						Map
-							.of(
-								"Content-Type",
-								"application/octet-stream",
-								"Content-Length",
-								String.valueOf(fileContent.getBytes().length))),
-				fileContent);
+		return new ResponseFromBytes(HttpStatus.OK,
+			new FromHeaderMap(Map
+				.of(
+					"Content-Type",
+					"application/octet-stream",
+					"Content-Length",
+					String.valueOf(fileContent.getBytes().length))).get(),
+			fileContent.getBytes()).get();
 	}
 
 	private void saveFile(final String fullPath, final String content) {
