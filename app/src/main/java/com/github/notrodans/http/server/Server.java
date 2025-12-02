@@ -15,7 +15,7 @@ final public class Server {
 	private final InterceptorHolder interceptorHolder;
 
 	public Server(final int port, final HandlerMethodResolver handlerMethodResolver,
-		final InterceptorHolder interceptorHolder) {
+			final InterceptorHolder interceptorHolder) {
 		this.port = port;
 		this.handlerMethodResolver = handlerMethodResolver;
 		this.interceptorHolder = interceptorHolder;
@@ -29,7 +29,9 @@ final public class Server {
 				final var clientSocket = serverSocket.accept();
 				System.out.println("accepted new connection");
 				executorService
-					.execute(new RequestHandler(clientSocket, handlerMethodResolver, interceptorHolder));
+						.execute(
+							new RequestHandler(clientSocket, handlerMethodResolver, interceptorHolder)
+						);
 			}
 		} catch (final IOException e) {
 			System.out.println("IOException: " + e.getMessage());

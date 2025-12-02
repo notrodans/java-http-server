@@ -34,28 +34,35 @@ final public class ApplicationController {
 	@RequestMapping(path = "/echo/{command}", method = HttpMethod.GET)
 	public ResponseContext echo(final RequestContext context) {
 		final var responseBody = context.getLastPart();
-		return new ResponseFromBytes(HttpStatus.OK,
-			new FromHeaderList(List
-				.of(
+		return new ResponseFromBytes(
+			HttpStatus.OK,
+			new FromHeaderList(
+				List.of(
 					"Content-Type",
 					"text/plain",
 					"Content-Length",
-					String.valueOf(responseBody.getBytes().length))).get(
-
-			), responseBody.getBytes()).get();
+					String.valueOf(responseBody.getBytes().length)
+				)
+			).get(),
+			responseBody.getBytes()
+		).get();
 	}
 
 	@RequestMapping(path = "/user-agent", method = HttpMethod.GET)
 	public ResponseContext userAgent(final RequestContext context) {
 		final var responseBody = context.getHeaders().getFirst("User-Agent");
-		return new ResponseFromBytes(HttpStatus.OK,
-			new FromHeaderMap(Map
-				.of(
+		return new ResponseFromBytes(
+			HttpStatus.OK,
+			new FromHeaderMap(
+				Map.of(
 					"Content-Type",
 					"text/plain",
 					"Content-Length",
-					String.valueOf(responseBody.getBytes().length))).get(),
-			responseBody.getBytes()).get();
+					String.valueOf(responseBody.getBytes().length)
+				)
+			).get(),
+			responseBody.getBytes()
+		).get();
 	}
 
 	@RequestMapping(path = "/files/{file}", method = HttpMethod.POST)
@@ -85,14 +92,18 @@ final public class ApplicationController {
 		}
 
 		final var fileContent = readFile(file);
-		return new ResponseFromBytes(HttpStatus.OK,
-			new FromHeaderMap(Map
-				.of(
+		return new ResponseFromBytes(
+			HttpStatus.OK,
+			new FromHeaderMap(
+				Map.of(
 					"Content-Type",
 					"application/octet-stream",
 					"Content-Length",
-					String.valueOf(fileContent.getBytes().length))).get(),
-			fileContent.getBytes()).get();
+					String.valueOf(fileContent.getBytes().length)
+				)
+			).get(),
+			fileContent.getBytes()
+		).get();
 	}
 
 	private void saveFile(final String fullPath, final String content) {

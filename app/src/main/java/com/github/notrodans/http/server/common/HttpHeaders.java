@@ -21,14 +21,12 @@ final public class HttpHeaders {
 	}
 
 	public void add(final String key, final String value) {
-		final List<String> currentValue =
-			headers.computeIfAbsent(key.toLowerCase(), k -> new ArrayList<>());
+		final List<String> currentValue = headers.computeIfAbsent(key.toLowerCase(), k -> new ArrayList<>());
 		currentValue.add(value);
 	}
 
 	public void addAll(final String key, final List<String> values) {
-		final List<String> currentValues =
-			headers.computeIfAbsent(key.toLowerCase(), k -> new ArrayList<>());
+		final List<String> currentValues = headers.computeIfAbsent(key.toLowerCase(), k -> new ArrayList<>());
 		currentValues.addAll(values);
 	}
 

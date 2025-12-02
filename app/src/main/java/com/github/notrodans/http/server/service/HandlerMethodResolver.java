@@ -13,15 +13,16 @@ final public class HandlerMethodResolver {
 
 	public HandlerMethod resolve(final RequestContext context) {
 		return handlerHolder
-			.getHandlerMethods()
-			.stream()
-			.filter(
-				it -> context.getMethod() == it.getMethod()
-					&& new PathPatternFromPath(it.getPath()).get().match(context.getPath()))
-			.findFirst()
-			.orElseGet(() -> {
-				System.out.println("Handler by context not found: " + context);
-				return null;
-			});
+				.getHandlerMethods()
+				.stream()
+				.filter(
+					it -> context.getMethod() == it.getMethod()
+							&& new PathPatternFromPath(it.getPath()).get().match(context.getPath())
+				)
+				.findFirst()
+				.orElseGet(() -> {
+					System.out.println("Handler by context not found: " + context);
+					return null;
+				});
 	}
 }

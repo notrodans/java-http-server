@@ -5,5 +5,5 @@ import com.github.notrodans.http.server.response.ResponseContext;
 
 public interface Interceptor {
 	void beforeSendResponse(final RequestContext requestContext,
-		final ResponseContext responseContext);
+			final ResponseContext responseContext);
 }

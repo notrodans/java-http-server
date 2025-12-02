@@ -34,8 +34,11 @@ public final class RequestContextFromReader implements Supplier<RequestContext> 
 			}
 			System.out.println("HTTP request headers: " + headers);
 			final HttpHeaders httpHeaders = new FromHeaderList(headers).get();
-			final var requestContext =
-				new RequestContext(methodWithPath.getKey(), methodWithPath.getValue(), httpHeaders);
+			final var requestContext = new RequestContext(
+				methodWithPath.getKey(),
+				methodWithPath.getValue(),
+				httpHeaders
+			);
 			final var contentLength = httpHeaders.getFirst("Content-Length");
 			if (contentLength != null && !contentLength.isEmpty()) {
 				final int bodySize = Integer.parseInt(contentLength);
@@ -52,7 +55,7 @@ public final class RequestContextFromReader implements Supplier<RequestContext> 
 	}
 
 	private AbstractMap.SimpleEntry<HttpMethod, String> extractMethodAndPath(
-		final String requestLine) {
+			final String requestLine) {
 		final var parts = requestLine.split(" ");
 		return new AbstractMap.SimpleEntry<>(new HttpMethodFromType(parts[0]).get(), parts[1]);
 	}

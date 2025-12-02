@@ -8,27 +8,26 @@ import com.github.notrodans.http.server.exception.InterceptorException;
 import com.github.notrodans.http.server.request.RequestContext;
 import com.github.notrodans.http.server.response.ResponseContext;
 
-final public class EncodeInterceptor implements Interceptor {
+public class EncodeInterceptor implements Interceptor {
 	@Override
 	public void beforeSendResponse(final RequestContext requestContext,
-		final ResponseContext responseContext) {
+			final ResponseContext responseContext) {
 		final var acceptEncoding = requestContext.getHeaders().getFirst("Accept-Encoding");
 		if (acceptEncoding != null && !acceptEncoding.isBlank()
-			&& responseContext.getResponseBody() != null) {
+				&& responseContext.getResponseBody() != null) {
 			final var parts = acceptEncoding.split(",");
 			Arrays
-				.stream(parts)
-				.filter(it -> it.trim().equalsIgnoreCase("gzip"))
-				.findFirst()
-				.ifPresent(gzipString -> {
-					final byte[] responseBody =
-						compressResponseBody(responseContext.getResponseBody());
-					responseContext
-						.getHeaders()
-						.set("Content-Length", String.valueOf(responseBody.length));
-					responseContext.getHeaders().set("Content-Encoding", "gzip");
-					responseContext.setResponseBody(responseBody);
-				});
+					.stream(parts)
+					.filter(it -> it.trim().equalsIgnoreCase("gzip"))
+					.findFirst()
+					.ifPresent(gzipString -> {
+						final byte[] responseBody = compressResponseBody(responseContext.getResponseBody());
+						responseContext
+								.getHeaders()
+								.set("Content-Length", String.valueOf(responseBody.length));
+						responseContext.getHeaders().set("Content-Encoding", "gzip");
+						responseContext.setResponseBody(responseBody);
+					});
 		}
 	}
 
@@ -41,7 +40,8 @@ final public class EncodeInterceptor implements Interceptor {
 			return outputStream.toByteArray();
 		} catch (final IOException e) {
 			throw new InterceptorException(
-				"Exception trying to gzip response body!" + new String(responseBody));
+				"Exception trying to gzip response body!" + new String(responseBody)
+			);
 		}
 	}
 }

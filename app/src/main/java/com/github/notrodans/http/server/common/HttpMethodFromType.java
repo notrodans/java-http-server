@@ -13,9 +13,10 @@ public final class HttpMethodFromType implements Supplier<HttpMethod> {
 	@Override
 	public HttpMethod get() {
 		return Arrays
-			.stream(HttpMethod.values())
-			.filter(it -> it.getType().equalsIgnoreCase(type))
-			.findFirst()
-			.orElseThrow(() -> new IllegalArgumentException("Exception on get http method"));
+				.stream(HttpMethod.values())
+				.filter(it -> it.getType().equalsIgnoreCase(type))
+				.findFirst()
+				.orElseThrow(() -> new IllegalArgumentException("Exception on get http method"));
 	}
 }
+

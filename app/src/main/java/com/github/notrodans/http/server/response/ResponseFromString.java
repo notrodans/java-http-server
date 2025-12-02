@@ -11,7 +11,7 @@ public final class ResponseFromString implements Supplier<ResponseContext> {
 	private final String body;
 
 	public ResponseFromString(final HttpStatus status, final HttpHeaders headers,
-		final String body) {
+			final String body) {
 		this.status = Objects.requireNonNull(status);
 		this.headers = headers;
 		this.body = body;
@@ -23,3 +23,4 @@ public final class ResponseFromString implements Supplier<ResponseContext> {
 		return new ResponseFromBytes(status, headers, bytes).get();
 	}
 }
+

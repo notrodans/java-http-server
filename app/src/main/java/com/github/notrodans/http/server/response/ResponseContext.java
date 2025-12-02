@@ -33,10 +33,9 @@ final public class ResponseContext {
 	public byte[] getResponseAsBytes() {
 		try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
 			outputStream
-				.write(
-					("HTTP/1.1 " + status.getCode() + " " + status.getReasonPhrase() + "\r\n")
-						.getBytes());
-
+					.write(
+						("HTTP/1.1 " + status.getCode() + " " + status.getReasonPhrase() + "\r\n").getBytes()
+					);
 			if (headers != null) {
 				outputStream.write(headers.toString().getBytes());
 			}
@@ -50,7 +49,9 @@ final public class ResponseContext {
 			return outputStream.toByteArray();
 		} catch (final IOException e) {
 			throw new ResponseContextException(
-				"ResponseContextException trying to get bytes for response", e);
+				"ResponseContextException trying to get bytes for response",
+				e
+			);
 		}
 	}
 

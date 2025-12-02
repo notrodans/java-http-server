@@ -30,9 +30,14 @@ final public class HandlerHolder {
 						if (method.getReturnType() == ResponseContext.class) {
 							final var annotation = method.getAnnotation(RequestMapping.class);
 							handlerMethods
-								.add(
-									new HandlerMethod(
-										handler, annotation.path(), method, annotation.method()));
+									.add(
+										new HandlerMethod(
+											handler,
+											annotation.path(),
+											method,
+											annotation.method()
+										)
+									);
 						}
 					}
 				}

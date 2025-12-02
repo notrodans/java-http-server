@@ -17,7 +17,7 @@ final public class RequestHandler implements Runnable {
 	private final InterceptorHolder interceptorHolder;
 
 	public RequestHandler(final Socket clientSocket, final HandlerMethodResolver handleMethodResolver,
-		final InterceptorHolder interceptorHolder) {
+			final InterceptorHolder interceptorHolder) {
 		this.clientSocket = clientSocket;
 		this.handleMethodResolver = handleMethodResolver;
 		this.interceptorHolder = interceptorHolder;
@@ -36,20 +36,20 @@ final public class RequestHandler implements Runnable {
 			final var os = clientSocket.getOutputStream();
 			final var handlerMethod = handleMethodResolver.resolve(context);
 			if (handlerMethod == null) {
-				os
-					.write(
-						new ResponseFromString(HttpStatus.NOT_FOUND, null, null)
+				os.write(
+					new ResponseFromString(HttpStatus.NOT_FOUND, null, null)
 							.get()
-							.getResponseAsBytes());
+							.getResponseAsBytes()
+				);
 				os.flush();
 			} else {
 				final ResponseContext responseContext = handlerMethod.invoke(context);
 				if (responseContext.getStatus().isError()) {
-					os
-						.write(
-							new ResponseFromString(responseContext.getStatus(), null, null)
+					os.write(
+						new ResponseFromString(responseContext.getStatus(), null, null)
 								.get()
-								.getResponseAsBytes());
+								.getResponseAsBytes()
+					);
 					os.flush();
 				} else {
 					interceptorHolder.beforeSendResponse(context, responseContext);

@@ -28,8 +28,7 @@ final public class PathPattern {
 		segments = new Segment[inSegments.length];
 		for (int i = 0; i < segments.length; i++) {
 			if (inSegments[i].startsWith("{") && inSegments[i].endsWith("}")) {
-				segments[i] =
-					new Segment(true, inSegments[i].substring(1, inSegments[i].length() - 1));
+				segments[i] = new Segment(true, inSegments[i].substring(1, inSegments[i].length() - 1));
 			} else {
 				segments[i] = new Segment(false, inSegments[i]);
 			}

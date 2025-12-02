@@ -2,7 +2,7 @@ package com.github.notrodans.http.server.common;
 
 public enum HttpStatus {
 	OK(200, Series.SUCCESSFUL, "OK"), CREATED(201, Series.SUCCESSFUL, "CREATED"), NOT_FOUND(404,
-		Series.CLIENT_ERROR, "Not Found");
+			Series.CLIENT_ERROR, "Not Found");
 
 	public enum Series {
 		INFORMTIONAL(1), SUCCESSFUL(2), REDIRECTION(3), CLIENT_ERROR(4), SERVER_ERROR(5);

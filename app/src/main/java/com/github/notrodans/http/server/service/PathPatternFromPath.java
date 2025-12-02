@@ -14,3 +14,4 @@ public final class PathPatternFromPath implements Supplier<PathPattern> {
 		return new PathPattern(path);
 	}
 }
+

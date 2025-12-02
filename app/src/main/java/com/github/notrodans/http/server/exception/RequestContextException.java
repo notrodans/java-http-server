@@ -1,7 +1,8 @@
 package com.github.notrodans.http.server.exception;
 
 final public class RequestContextException extends RuntimeException {
-	public RequestContextException() {}
+	public RequestContextException() {
+	}
 
 	public RequestContextException(final String message) {
 		super(message);

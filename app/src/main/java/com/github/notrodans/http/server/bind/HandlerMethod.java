@@ -12,7 +12,7 @@ final public class HandlerMethod {
 	private final Method handler;
 
 	public HandlerMethod(final Object handlerObject, final String path, final Method handler,
-		final HttpMethod method) {
+			final HttpMethod method) {
 		this.handlerObject = handlerObject;
 		this.method = method;
 		this.path = path;

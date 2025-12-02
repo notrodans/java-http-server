@@ -1,7 +1,8 @@
 package com.github.notrodans.http.server.exception;
 
 final public class InterceptorException extends RuntimeException {
-	public InterceptorException() {}
+	public InterceptorException() {
+	}
 
 	public InterceptorException(final String message) {
 		super(message);
