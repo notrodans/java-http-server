@@ -19,4 +19,3 @@ public final class HttpMethodFromType implements Supplier<HttpMethod> {
 				.orElseThrow(() -> new IllegalArgumentException("Exception on get http method"));
 	}
 }
-

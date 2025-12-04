@@ -10,7 +10,9 @@ public final class ResponseFromBytes implements Supplier<ResponseContext> {
 	private final HttpHeaders headers;
 	private final byte[] body;
 
-	public ResponseFromBytes(final HttpStatus status, final HttpHeaders headers,
+	public ResponseFromBytes(
+			final HttpStatus status,
+			final HttpHeaders headers,
 			final byte[] body) {
 		this.status = Objects.requireNonNull(status);
 		this.headers = headers;
@@ -26,4 +28,3 @@ public final class ResponseFromBytes implements Supplier<ResponseContext> {
 		return context;
 	}
 }
-

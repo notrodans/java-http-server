@@ -18,4 +18,3 @@ public final class FromHeaderMap implements Supplier<HttpHeaders> {
 		return httpHeader;
 	}
 }
-

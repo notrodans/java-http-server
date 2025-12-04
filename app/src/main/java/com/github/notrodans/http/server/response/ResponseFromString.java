@@ -23,4 +23,3 @@ public final class ResponseFromString implements Supplier<ResponseContext> {
 		return new ResponseFromBytes(status, headers, bytes).get();
 	}
 }
-
